@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release-IL2CPP' ">
+    <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+    <DefineConstants>TRACE;TAIKO_IL2CPP</DefineConstants>
+    <Optimize>true</Optimize>
+    <GameDir>D:\Taiko no Tatsujin PC Official\T Tablet\Content</GameDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug-IL2CPP' ">
+    <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+    <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+    <DefineConstants>TRACE;TAIKO_IL2CPP;</DefineConstants>
+    <GameDir>D:\Taiko no Tatsujin PC Official\T Tablet\Content</GameDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release-Mono' ">
+    <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+    <DefineConstants>TRACE;TAIKO_MONO;</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug-Mono' ">
+	  <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+	  <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+	  <DefineConstants>TRACE;TAIKO_MONO;</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework Condition="$(DefineConstants.Contains('TAIKO_IL2CPP'))">net6.0</TargetFramework>
+    <TargetFramework Condition="$(DefineConstants.Contains('TAIKO_MONO'))">net48</TargetFramework>
+    <AssemblyName>com.DB.ScoreRankForTdmx</AssemblyName>
+    <Description>Adds Score Rank icons to TDMX.</Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>ScoreRankForTdmx</RootNamespace>
+    <PackageId>ScoreRankForTdmx</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Configurations>Release-IL2CPP;Release-Mono;Debug-IL2CPP;Debug-Mono</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(DefineConstants.Contains('TAIKO_IL2CPP'))">
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.663" />
+    <Reference Include="$(GameDir)\BepInEx\interop\*.dll" Private="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(DefineConstants.Contains('TAIKO_MONO'))">
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="Taiko.GameLibs" Version="1.2.2-r.1" />
+    <PackageReference Include="UnityEngine.Modules" Version="2020.3.34" IncludeAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+    <PackageReference Include="Costura.Fody" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Fody" Version="6.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
